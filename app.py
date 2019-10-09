@@ -37,6 +37,17 @@ def get_todos():
     result = todos_schema.dump(all_todos)
     return jsonify(result)
 
+@app.route('/todo', methods=["POST"])
+def post_todo():
+    title = request.json["title"]
+    done = request.json["done"]
+
+    new_todo = Todo(title,done)
+    db.session.add(new_todo)
+    db.session.commit()
+
+    created_todo = Todo.query.get(new_todo.id)
+    return todo_schema.jsonify(created_todo)
 
 if __name__ == '__main__':
     app.run(debug=True)
