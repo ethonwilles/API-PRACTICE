@@ -36,3 +36,7 @@ def get_todos():
     all_todos = Todo.query.all()
     result = todos_schema.dump(all_todos)
     return jsonify(result)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
